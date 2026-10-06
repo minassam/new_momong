@@ -314,6 +314,8 @@ function AdjustSlider({ pos, l, r, onChange }: { pos: number; l: string; r: stri
 
 export function AIFaceFeature({ onNext, onBack, facePhotoUrl, initialPosMap, measurements, values }: Props) {
   const [zoneIdx, setZoneIdx]     = useState(0);
+  // 타입 예시 섹션의 상단 바 선택 (위쪽 형태/비율 분석 탭과는 따로 움직인다)
+  const [exampleIdx, setExampleIdx] = useState(0);
   const [stepIdx, setStepIdx]     = useState(0);
   const [guideline, setGuideline] = useState(false);
   const [done, setDone]           = useState<Record<string, boolean>>({});
@@ -916,17 +918,27 @@ export function AIFaceFeature({ onNext, onBack, facePhotoUrl, initialPosMap, mea
         {/* ── 타입 예시 사진 ─────────────────────────────────────────── */}
         <section className="mt-12 pt-8 border-t border-[#DCE4E9]">
           <p className="text-[12px] tracking-[0.2em] text-[#777777] mb-1.5" style={{ fontFamily: MONO }}>TYPE EXAMPLES</p>
-          <h2 className="text-[1.1rem] font-light text-[#292625] tracking-tight mb-1">
-            {TYPE_EXAMPLES[zoneIdx].zone} 타입 예시
-          </h2>
+          <h2 className="text-[1.1rem] font-light text-[#292625] tracking-tight mb-1">타입 예시</h2>
           <p className="text-[12px] text-[#777777] mb-4">타입별로 어떤 인상인지 예시 사진으로 비교해 보세요.</p>
+
+          {/* 상단 바 — 형태 / 비율을 누르면 해당 예시가 보인다 */}
+          <div className="flex border-b border-[#E0E0E0] mb-4">
+            {TYPE_EXAMPLES.map((ex, i) => (
+              <button key={ex.zone} onClick={() => setExampleIdx(i)}
+                className="relative pb-3 mr-8 text-[14px] tracking-tight"
+                style={{ fontWeight: i === exampleIdx ? 600 : 400, color: i === exampleIdx ? '#292625' : '#AAAAAA', background: 'none', border: 'none', cursor: 'pointer' }}>
+                {ex.zone}
+                {i === exampleIdx && <motion.div layoutId="extab" className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#4B2928]" />}
+              </button>
+            ))}
+          </div>
           <div className="grid grid-cols-3 gap-3">
-            {TYPE_EXAMPLES[zoneIdx].types.map(t => (
+            {TYPE_EXAMPLES[exampleIdx].types.map(t => (
               <figure key={t.label} className="m-0">
                 <div className="relative overflow-hidden bg-[#F9F9F7] rounded-sm flex items-center justify-center"
                   style={{ aspectRatio: '3 / 4', border: t.photo ? 'none' : '1px dashed #CCCCCA' }}>
                   {t.photo
-                    ? <img src={t.photo} alt={`${TYPE_EXAMPLES[zoneIdx].zone} ${t.label} 예시`} className="w-full h-full object-cover" />
+                    ? <img src={t.photo} alt={`${TYPE_EXAMPLES[exampleIdx].zone} ${t.label} 예시`} className="w-full h-full object-cover" />
                     : <span className="text-[12px] text-[#AAAAAA]">예시 사진 준비 중</span>}
                 </div>
                 <figcaption className="mt-2 text-center text-[13px] text-[#292625]" style={{ fontFamily: MONO }}>{t.label}</figcaption>
