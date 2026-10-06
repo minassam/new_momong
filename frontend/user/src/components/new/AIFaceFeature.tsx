@@ -238,6 +238,15 @@ const OVERLAYS: Record<string, React.ReactNode> = {
   ),
 };
 
+/**
+ * 형태·비율 타입 예시 사진 슬롯.
+ * 사진이 준비되면 photo 에 경로(예: '/new/type-form-warm.jpg')만 넣으면 된다. 비어 있으면 자리만 보인다.
+ */
+const TYPE_EXAMPLES: { zone: string; types: { label: string; photo: string }[] }[] = [
+  { zone: '형태', types: [{ label: 'Warm', photo: '' }, { label: 'Neutral', photo: '' }, { label: 'Cool', photo: '' }] },
+  { zone: '비율', types: [{ label: 'Soft', photo: '' }, { label: 'Neutral', photo: '' }, { label: 'Hard', photo: '' }] },
+];
+
 const ZONES = [
   { tag: 'A', name: '형태 분석', count: '10항목', items: FORM },
   { tag: 'B', name: '비율 분석', count: '10항목', items: PROP },
@@ -903,6 +912,28 @@ export function AIFaceFeature({ onNext, onBack, facePhotoUrl, initialPosMap, mea
             </>
           );
         })()}
+
+        {/* ── 타입 예시 사진 ─────────────────────────────────────────── */}
+        <section className="mt-12 pt-8 border-t border-[#DCE4E9]">
+          <p className="text-[12px] tracking-[0.2em] text-[#777777] mb-1.5" style={{ fontFamily: MONO }}>TYPE EXAMPLES</p>
+          <h2 className="text-[1.1rem] font-light text-[#292625] tracking-tight mb-1">
+            {TYPE_EXAMPLES[zoneIdx].zone} 타입 예시
+          </h2>
+          <p className="text-[12px] text-[#777777] mb-4">타입별로 어떤 인상인지 예시 사진으로 비교해 보세요.</p>
+          <div className="grid grid-cols-3 gap-3">
+            {TYPE_EXAMPLES[zoneIdx].types.map(t => (
+              <figure key={t.label} className="m-0">
+                <div className="relative overflow-hidden bg-[#F9F9F7] rounded-sm flex items-center justify-center"
+                  style={{ aspectRatio: '3 / 4', border: t.photo ? 'none' : '1px dashed #CCCCCA' }}>
+                  {t.photo
+                    ? <img src={t.photo} alt={`${TYPE_EXAMPLES[zoneIdx].zone} ${t.label} 예시`} className="w-full h-full object-cover" />
+                    : <span className="text-[12px] text-[#AAAAAA]">예시 사진 준비 중</span>}
+                </div>
+                <figcaption className="mt-2 text-center text-[13px] text-[#292625]" style={{ fontFamily: MONO }}>{t.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );
