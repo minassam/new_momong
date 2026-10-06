@@ -942,7 +942,7 @@ export function AIFaceFeature({ onNext, onBack, facePhotoUrl, initialPosMap, mea
           <div className="grid gap-3 mx-auto"
             style={{
               gridTemplateColumns: `repeat(${TYPE_EXAMPLES[exampleIdx].cols}, minmax(0, 1fr))`,
-              ...(TYPE_EXAMPLES[exampleIdx].fit ? { maxWidth: 'max(260px, calc((100vh - 260px) * 0.75 + 12px))' } : {}),
+              ...(TYPE_EXAMPLES[exampleIdx].fit ? { maxWidth: 'max(300px, calc((100vh - 200px) * 0.75 + 12px))' } : {}),
             }}>
             {TYPE_EXAMPLES[exampleIdx].types.map(t => (
               <figure key={t.label} className="m-0">
