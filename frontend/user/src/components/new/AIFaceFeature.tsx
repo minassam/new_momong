@@ -242,9 +242,13 @@ const OVERLAYS: Record<string, React.ReactNode> = {
  * 형태·비율 타입 예시 사진 슬롯.
  * 사진이 준비되면 photo 에 경로(예: '/new/type-form-warm.jpg')만 넣으면 된다. 비어 있으면 자리만 보인다.
  */
-const TYPE_EXAMPLES: { zone: string; types: { label: string; photo: string }[] }[] = [
-  { zone: '형태', types: [{ label: 'Warm', photo: '/new/type-form-warm.jpg' }, { label: 'Cool', photo: '/new/type-form-cool.jpg' }] },
-  { zone: '비율', types: [{ label: 'Soft', photo: '' }, { label: 'Hard', photo: '' }] },
+const TYPE_EXAMPLES: { zone: string; cols: number; types: { label: string; photo: string }[] }[] = [
+  { zone: '형태', cols: 2, types: [{ label: 'Warm', photo: '/new/type-form-warm.jpg' }, { label: 'Cool', photo: '/new/type-form-cool.jpg' }] },
+  // 비율은 가로 Warm–Cool, 세로 위 Soft · 아래 Hard 의 2×2
+  { zone: '비율', cols: 2, types: [
+    { label: 'Warm × Soft', photo: '/new/type-warm-soft.jpg' }, { label: 'Cool × Soft', photo: '/new/type-cool-soft.jpg' },
+    { label: 'Warm × Hard', photo: '/new/type-warm-hard.jpg' }, { label: 'Cool × Hard', photo: '/new/type-cool-hard.jpg' },
+  ] },
 ];
 
 const ZONES = [
@@ -932,7 +936,7 @@ export function AIFaceFeature({ onNext, onBack, facePhotoUrl, initialPosMap, mea
               </button>
             ))}
           </div>
-          <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${TYPE_EXAMPLES[exampleIdx].types.length}, minmax(0, 1fr))` }}>
+          <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${TYPE_EXAMPLES[exampleIdx].cols}, minmax(0, 1fr))` }}>
             {TYPE_EXAMPLES[exampleIdx].types.map(t => (
               <figure key={t.label} className="m-0">
                 <div className="relative overflow-hidden bg-[#F9F9F7] rounded-sm flex items-center justify-center"
