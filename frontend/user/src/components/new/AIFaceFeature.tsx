@@ -243,7 +243,7 @@ const OVERLAYS: Record<string, React.ReactNode> = {
  * 사진이 준비되면 photo 에 경로(예: '/new/type-form-warm.jpg')만 넣으면 된다. 비어 있으면 자리만 보인다.
  */
 const TYPE_EXAMPLES: { zone: string; types: { label: string; photo: string }[] }[] = [
-  { zone: '형태', types: [{ label: 'Cool', photo: '/new/type-form-cool.jpg' }, { label: 'Warm', photo: '/new/type-form-warm.jpg' }] },
+  { zone: '형태', types: [{ label: 'Warm', photo: '/new/type-form-warm.jpg' }, { label: 'Cool', photo: '/new/type-form-cool.jpg' }] },
   { zone: '비율', types: [{ label: 'Soft', photo: '' }, { label: 'Hard', photo: '' }] },
 ];
 
