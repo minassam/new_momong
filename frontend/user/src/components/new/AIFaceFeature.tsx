@@ -244,7 +244,8 @@ const OVERLAYS: Record<string, React.ReactNode> = {
  */
 const TYPE_EXAMPLES: { zone: string; cols: number; types: { label: string; photo: string }[] }[] = [
   { zone: '형태', cols: 2, types: [{ label: '귀여운', photo: '/new/type-form-warm.jpg' }, { label: '세련된', photo: '/new/type-form-cool.jpg' }] },
-  { zone: '비율', cols: 2, types: [{ label: '귀여운 · 순진한', photo: '/new/type-prop-left.jpg' }, { label: '부드러운 · 여성스러운', photo: '/new/type-prop-right.jpg' }] },
+  { zone: '비율', cols: 2, types: [{ label: '귀여운 · 순진한', photo: '/new/type-prop-left.jpg' }, { label: '부드러운 · 여성스러운', photo: '/new/type-prop-right.jpg' },
+    { label: '산뜻한 · 청초한', photo: '/new/type-prop-left2.jpg' }, { label: '현대적인 · 지적인', photo: '/new/type-prop-right2.jpg' }] },
   // 형태/비율은 가로 Warm–Cool, 세로 위 Soft · 아래 Hard 의 2×2
   { zone: '형태/비율', cols: 2, types: [
     { label: 'Warm × Soft', photo: '/new/type-warm-soft.jpg' }, { label: 'Cool × Soft', photo: '/new/type-cool-soft.jpg' },
