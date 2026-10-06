@@ -243,8 +243,8 @@ const OVERLAYS: Record<string, React.ReactNode> = {
  * 사진이 준비되면 photo 에 경로(예: '/new/type-form-warm.jpg')만 넣으면 된다. 비어 있으면 자리만 보인다.
  */
 const TYPE_EXAMPLES: { zone: string; types: { label: string; photo: string }[] }[] = [
-  { zone: '형태', types: [{ label: 'Cool', photo: '/new/type-form-cool.jpg' }, { label: 'Neutral', photo: '' }, { label: 'Warm', photo: '/new/type-form-warm.jpg' }] },
-  { zone: '비율', types: [{ label: 'Soft', photo: '' }, { label: 'Neutral', photo: '' }, { label: 'Hard', photo: '' }] },
+  { zone: '형태', types: [{ label: 'Cool', photo: '/new/type-form-cool.jpg' }, { label: 'Warm', photo: '/new/type-form-warm.jpg' }] },
+  { zone: '비율', types: [{ label: 'Soft', photo: '' }, { label: 'Hard', photo: '' }] },
 ];
 
 const ZONES = [
@@ -932,7 +932,7 @@ export function AIFaceFeature({ onNext, onBack, facePhotoUrl, initialPosMap, mea
               </button>
             ))}
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${TYPE_EXAMPLES[exampleIdx].types.length}, minmax(0, 1fr))` }}>
             {TYPE_EXAMPLES[exampleIdx].types.map(t => (
               <figure key={t.label} className="m-0">
                 <div className="relative overflow-hidden bg-[#F9F9F7] rounded-sm flex items-center justify-center"
