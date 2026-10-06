@@ -242,12 +242,12 @@ const OVERLAYS: Record<string, React.ReactNode> = {
  * 형태·비율 타입 예시 사진 슬롯.
  * 사진이 준비되면 photo 에 경로(예: '/new/type-form-warm.jpg')만 넣으면 된다. 비어 있으면 자리만 보인다.
  */
-const TYPE_EXAMPLES: { zone: string; cols: number; types: { label: string; photo: string }[] }[] = [
+const TYPE_EXAMPLES: { zone: string; cols: number; fit?: boolean; types: { label: string; photo: string }[] }[] = [
   { zone: '형태', cols: 2, types: [{ label: '귀여운', photo: '/new/type-form-warm.jpg' }, { label: '세련된', photo: '/new/type-form-cool.jpg' }] },
   { zone: '비율', cols: 2, types: [{ label: '귀여운 · 순진한', photo: '/new/type-prop-left.jpg' }, { label: '부드러운 · 여성스러운', photo: '/new/type-prop-right.jpg' },
     { label: '산뜻한 · 청초한', photo: '/new/type-prop-left2.jpg' }, { label: '현대적인 · 지적인', photo: '/new/type-prop-right2.jpg' }] },
   // 형태/비율은 가로 Warm–Cool, 세로 위 Soft · 아래 Hard 의 2×2
-  { zone: '형태/비율', cols: 2, types: [
+  { zone: '형태/비율', cols: 2, fit: true, types: [
     { label: '귀여운 · 순진한', photo: '/new/type-warm-soft.jpg' }, { label: '청초한 · 산뜻한', photo: '/new/type-cool-soft.jpg' },
     { label: '부드러운 · 여성스러운', photo: '/new/type-warm-hard.jpg' }, { label: '현대적인 · 지적인', photo: '/new/type-cool-hard.jpg' },
   ] },
@@ -938,8 +938,12 @@ export function AIFaceFeature({ onNext, onBack, facePhotoUrl, initialPosMap, mea
               </button>
             ))}
           </div>
-          <div className="grid gap-3"
-            style={{ gridTemplateColumns: `repeat(${TYPE_EXAMPLES[exampleIdx].cols}, minmax(0, 1fr))` }}>
+          {/* fit: 웹에서 4장이 스크롤 없이 한 화면에 꽉 차도록, 화면 높이에 맞춰 폭을 정한다 (최대는 본문 폭) */}
+          <div className="grid gap-3 mx-auto"
+            style={{
+              gridTemplateColumns: `repeat(${TYPE_EXAMPLES[exampleIdx].cols}, minmax(0, 1fr))`,
+              ...(TYPE_EXAMPLES[exampleIdx].fit ? { maxWidth: 'max(300px, calc((100vh - 245px) * 0.75 + 12px))' } : {}),
+            }}>
             {TYPE_EXAMPLES[exampleIdx].types.map(t => (
               <figure key={t.label} className="m-0">
                 <div className="relative overflow-hidden bg-[#F9F9F7] rounded-sm flex items-center justify-center"
