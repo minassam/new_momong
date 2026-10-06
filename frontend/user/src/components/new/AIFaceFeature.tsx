@@ -947,7 +947,7 @@ export function AIFaceFeature({ onNext, onBack, facePhotoUrl, initialPosMap, mea
                     ? <img src={t.photo} alt={`${TYPE_EXAMPLES[exampleIdx].zone} ${t.label} 예시`} className="w-full h-full object-cover" />
                     : <span className="text-[12px] text-[#AAAAAA]">예시 사진 준비 중</span>}
                 </div>
-                <figcaption className="mt-2 text-center text-[14px] font-bold text-[#292625]">{t.label}</figcaption>
+                <figcaption className="mt-2 text-center text-[14px] text-[#292625]">{t.label}</figcaption>
               </figure>
             ))}
           </div>
