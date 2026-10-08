@@ -590,7 +590,7 @@ function Inner() {
       );
     }
     if (currentPage === 'faceProcessing') {
-      return <NewFaceAnalysisProcessing onComplete={() => setCurrentPage('aiFaceFeature')} />;
+      return <NewFaceAnalysisProcessing facePhotoUrl={faceImageUrl} onComplete={() => setCurrentPage('aiFaceFeature')} />;
     }
     if (currentPage === 'aiFaceFeature') {
       return (
