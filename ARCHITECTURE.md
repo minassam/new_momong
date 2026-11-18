@@ -196,6 +196,16 @@ TypeScript 도 `react` / `@mediapipe/tasks-vision` 을 해석하지 못한다.
 
 → DB schema 변경 없이 jsonb 만으로 연결. 한 컨설팅 = 한 행 + face_analysis_results 의 2행.
 
+### 4-3. 모몽 OS 연동 (리포트 → 직원 앱 고객 기록)
+
+`backend/src/os-sync/` — 상담 저장 · 수정 · 삭제, 공유 링크 만들기 때 `OsSyncService` 가
+모몽 OS(`momong9311-dot/merci-care-cloudflare`) `POST /api/consult-report` 로 요약을 보낸다
+(헤더 `x-merci-key`, 기다리지 않음 · 실패해도 저장은 그대로). env `MOMONG_OS_URL` + `MOMONG_OS_KEY`.
+보내는 것: 상담 id · 매장(`users.store_name`) · 담당 · 날짜 · 코스 · 고객(이름 · 전화 · 성별 · 연령대) ·
+요약(`consult-summary.ts` — 이미지 타입 · 원하는 이미지 · 키워드 · 모발 상태 · 오늘 디자인 · 다음 방향 ·
+관리 주기 · 애프터 노트) · 공유 링크와 비밀번호. 모몽 OS 는 전화번호 + 이름으로 자기 고객을 찾아
+고객 창 '헤어컨설팅 리포트'에 보여 준다. 1WAY 스타일 id → 이름 표는 `HairConsulting.tsx` 의 옵션과 맞출 것.
+
 ### 4-2. face_analysis_results.python_analysis_result jsonb 구조
 
 ```jsonc

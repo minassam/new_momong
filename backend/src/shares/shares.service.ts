@@ -9,6 +9,7 @@ import { randomBytes } from 'crypto';
 import * as bcrypt from 'bcrypt';
 import { ConsultationShare } from './shares.entity';
 import { Consultation } from '../consultations/consultations.entity';
+import { OsSyncService } from '../os-sync/os-sync.service';
 
 @Injectable()
 export class SharesService {
@@ -17,6 +18,7 @@ export class SharesService {
     private readonly shareRepo: Repository<ConsultationShare>,
     @InjectRepository(Consultation)
     private readonly consultationRepo: Repository<Consultation>,
+    private readonly osSync: OsSyncService,
   ) {}
 
   async createShare(
@@ -42,6 +44,7 @@ export class SharesService {
       password_plain: password,
     });
     await this.shareRepo.save(share);
+    this.osSync.pushConsultation(consultationId); // 모몽 OS 고객 기록에 리포트 링크도
 
     return { token };
   }
